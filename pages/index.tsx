@@ -5,120 +5,93 @@ import styles from '../styles/Home.module.scss'
 import type { NextPage } from 'next'
 import { useTheme } from 'next-themes'
 import Head from 'next/head'
-// import Image from 'next/image'
 
-const Home: NextPage = () => {
- 
-  const { setTheme, theme } = useTheme()
-  const [data, setData] = useState({})
-  const [isConnected, setIsConnected] = useState(false)
-  console.log("Data:", data)
-  const initialdata = {
-    PblcOrdrBooksDeltaRprt: {
-      OrdrbookList: {
-        OrdrBook:
-          [
+// import Image from 'next/image'
+type serverDataProps = {
+  PblcOrdrBooksDeltaRprt: {
+    OrdrbookList: {
+      OrdrBook:
+
+      {
+        contractId: string,
+        dlvryAreaId: string,
+        lastPx: string,
+        lastQty: string,
+        totalQty: string,
+        lastTradeTime: string,
+        pxDir: string,
+        revisionNo: string,
+        highPx: string,
+        lowPx: string,
+        SellOrdrList: {
+          OrdrBookEntry: [
             {
-              contractId: "12610502",
-              dlvryAreaId: "10YNL----------L", lastPx: "41135",
-              lastQty: "600",
-              totalQty: "207000",
-              lastTradeTime: "2021-12-18T13:59:00.719Z", pxDir: "-1",
-              revisionNo: "10944",
-              highPx: "45907",
-              lowPx: "32238",
-              SellOrdrList: {
-                OrdrBookEntry: [
-                  {
-                    ordrId: "1411792036",
-                    qty: "8600",
-                    px: "230000"
-                  }, {
-                    ordrId: "1411792214",
-                    qty: "0",
-                    px: "380000"
-                  }
-                ]
-              }
+              ordrId: string,
+              qty: string,
+              px: string,
             },
-            {
-              contractId: "126105546502",
-              dlvryAreaId: "10YNL-------HGL", 
-              lastPx: "41135",
-              lastQty: "600",
-              totalQty: "207000",
-              lastTradeTime: "2021-12-18T13:59:00.719Z",
-              pxDir: "-1",
-              revisionNo: "10944",
-              highPx: "45907",
-              lowPx: "32238",
-              SellOrdrList: {
-                OrdrBookEntry: [
-                  {
-                    ordrId: "1411792036",
-                    qty: "8600",
-                    px: "230000"
-                  }, {
-                    ordrId: "1411792214",
-                    qty: "0",
-                    px: "380000"
-                  }
-                ]
-              }
-            },
-            {
-              contractId: "12610475",
-              dlvryAreaId: "10YNL-------LG---L", 
-              lastPx: "35685",
-              lastQty: "1600",
-              totalQty: "135600",
-              lastTradeTime: "2021-12-18T13:59:00.719Z", 
-              pxDir: "1",
-              revisionNo: "7578",
-              highPx: "41676",
-              lowPx: "32624",
-              BuyOrdrList: {
-                OrdrBookEntry: [
-                  {
-                    ordrId: "1412026191",
-                    qty: "1300",
-                    px: "35545"
-                  },
-                  {
-                    ordrId: "12059435720",
-                    qty: "0",
-                    px: "35265"
-                  },]
-              }
-            }
           ]
-      }
+        },
+        BuyOrdrList: {
+          OrdrBookEntry: [
+            {
+              ordrId: string,
+              qty: string,
+              px: string,
+            },
+          ]
+        }
+      },
+
+
     }
   }
+}
+const Home: NextPage = () => {
 
+  const { setTheme, theme } = useTheme()
+  const [isConnected, setIsConnected] = useState(false)
+
+  const [parsedData, setParsedData] = useState<any>([])
+
+  const [buyOrders, setBuyOrders] = useState<any>([])
+
+  const [sellOrdrs, setSellOrdrs] = useState<any>([])
+
+  const contratId = '@contractId'
+  const dlvryAreaId = '@dlvryAreaId'
+  const ordrId = '@ordrId'
+  const qty = '@qty'
+  const px = '@px'
+  console.log("Parsed Data:", parsedData[contratId])
   const handleSetWebSocketConnection = () => {
     const socket = new WebSocket(`ws://${process.env.NEXT_PUBLIC_IP_PORT}`)
     socket.onopen = (e) => {
-      if (socket.readyState === WebSocket.OPEN) {
-        socket.send(`Login ${process.env.NEXT_PUBLIC_IP_AUTH_TOKEN}`)
-        socket.onmessage= function(e){
-          console.log("Data2:", e.data)
-          setData(e.data)
-        }
-        setIsConnected(true)
-      }  else {
-        setIsConnected(false)
-      }
-      
-    };
-   
-  }
-  const handleLoadDataFromServer = () => {
-    // socket.connect();
 
+        if (socket.readyState === WebSocket.OPEN) {
+          socket.send(`Login ${process.env.NEXT_PUBLIC_IP_AUTH_TOKEN}`)
+          socket.onmessage = (data) => {
+            setIsConnected(true)
+            socket.send('pong')
+            if (data.data !== "Handshake OK" && data.data !== "ping") {
+              const extractValue = JSON.parse(data.data)
+              const result = extractValue.PblcOrdrBooksDeltaRprt.OrdrbookList.OrdrBook
+              setParsedData(result)
+              setBuyOrders(result.BuyOrdrList?.OrdrBookEntry)
+              setSellOrdrs(result.SellOrdrList?.OrdrBookEntry)
+            }
+            // setData(data.data)
+          }
+
+        } else {
+          setIsConnected(false)
+        }
+
+    };
   }
+
   useEffect(() => {
-    handleLoadDataFromServer()
+
 
   }, [])
   const handleChangeTheme = () => {
@@ -140,7 +113,7 @@ const Home: NextPage = () => {
             <span >
               WebSocket showcase
             </span>
-            
+
             <button onClick={handleChangeTheme}>{theme === 'dark' ? <Moon color="#CCCCCC" size={24} /> : <Sun color="#FFD130" size={24} />}</button>
           </div>
         </div>
@@ -160,61 +133,59 @@ const Home: NextPage = () => {
 
               <strong>Contract:</strong>
               <select>
-                {initialdata.PblcOrdrBooksDeltaRprt.OrdrbookList.OrdrBook.map((i, data) => {
-                  return (
-                    <option key={data} value={`${i.contractId}`}>{i.contractId}</option>
-                  )
-                })}
+
+                {parsedData === undefined ? null : parsedData.length === undefined ? <option value={parsedData[contratId]}>{parsedData[contratId]}</option>
+                  : parsedData.map((data: any, index: number) => {
+                    return <option key={index} value={data[contratId]}>{data[contratId]}</option>
+                  }
+                  )}
               </select>
 
               <strong>Delivary area:</strong>
               <select>
-                {initialdata.PblcOrdrBooksDeltaRprt.OrdrbookList.OrdrBook.map((i, data) => {
-                  return (
-                    <option key={data} value={`${i.dlvryAreaId}`}>{i.dlvryAreaId}</option>
-                  )
-                })}
+                {parsedData === undefined ? null : parsedData.length === undefined ? <option value={parsedData[dlvryAreaId]}>{parsedData[dlvryAreaId]}</option>
+                  : parsedData.map((data: any, index: number) => {
+                    return <option key={index} value={data[dlvryAreaId]}>{data[dlvryAreaId]}</option>
+                  }
 
+                  )}
               </select>
             </div>
 
+            <span>{parsedData[contratId]} / {parsedData[dlvryAreaId]}</span>
 
-            <span>1234567890 / 9876GFHJ98766</span>
+            <div className={styles.table}>
+              <div className={styles.tablehead}>
 
-            <table>
-              <thead>
-                <tr>
-                  <th>Sell</th>
-                  <th>Buy</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>495969696</td>
-                  <td>0897606G00BG</td>
-                </tr>
-                <tr>
-                  <td>495969696</td>
-                  <td>0897606G00BG</td>
-                </tr>
-                <tr>
-                  <td>495969696</td>
-                  <td>0897606G00BG</td>
-                </tr>
-                <tr>
-                  <td>495969696</td>
-                  <td>0897606G00BG</td>
-                </tr>
-                <tr>
-                  <td>495969696</td>
-                  <td>0897606G00BG</td>
-                </tr>
-                <tr>
-                  <td>495969696</td>
-                  <td>0897606G00BG</td>
-                </tr>
-              </tbody>
-            </table>
+                <h3>Buy</h3>
+                <h3>Sell</h3>
+
+              </div>
+              <div className={styles.tbody}>
+                <div>
+                  {buyOrders === undefined ? null : buyOrders.length === undefined ? <p>{`${buyOrders[px]}(${buyOrders[qty]})`}</p>
+                    : buyOrders.map((data: any, index: number) => {
+
+                      return (
+                        <p key={index}>{`${data[px]}(${data[qty]})`}</p>)
+                    })
+                  }
+
+                </div>
+                <div>
+                  {sellOrdrs === undefined ? null : sellOrdrs.length === undefined ? <p>{`${sellOrdrs[px]}(${sellOrdrs[qty]})`}</p>
+                    : sellOrdrs.map((data: any, index: number) => <p key={index}>{`${data[px]}(${data[qty]})`}</p>
+                    )}
+
+                </div>
+
+              </div>
+            </div>
+            {/* <p>{serverData === null ? "Nao ha dados" : serverData?.map((i, d) => {
+              return (
+                <p key={d}>{i.lastPx}</p>
+              )
+            })}</p> */}
 
           </div>
 
