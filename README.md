@@ -9,15 +9,15 @@
   <a href="#memo-licence">Licence</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
-### [#-about] About
+### [#-about](#-about) About
 The task was to write a React app that connects to a websocket, retrieves data from there and aggregates it in order to show it in an orderly manner.
-### [#-layout] Layouts
+### [#-layout](#-layout) Layouts
 <br>
 <p align="center">
     <h2>Ligth mode</h2>
-  <img alt="Login" src=".github/ligth.png" width="30%">
+  <img alt="Login" src=".github/ligth.png" width="60%">
   <h2>Dark mode</h2>
-  <img alt="LoginTwo" src=".github/dark.png" width="30%">
+  <img alt="LoginTwo" src=".github/dark.png" width="60%">
 </p> 
 <br>
 
