@@ -10,8 +10,11 @@
 </p>
 
 ## :memo: About
+
 The task was to write a React app that connects to a websocket, retrieves data from there and aggregates it in order to show it in an orderly manner.
+
 ## :card_index: Layouts
+
 <br>
 <p align="center">
     <h4>:high_brightness: Ligth mode</h4>
@@ -26,11 +29,13 @@ The task was to write a React app that connects to a websocket, retrieves data f
 </br>
 
 ## 🧠 Use:
+
 1. Rename the .env.exemple to .env.local and replce your ip adress and the port
 2. Open a new bash shell
 3. ```npm install``` or ```yarn install```
 4. ```npm run dev``` or ```yarn dev```
 5. You can visit [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
 ## 🚀 Technologies
 
 |    Lib       | Version  |
