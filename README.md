@@ -2,32 +2,36 @@
 ## Exchange data websocket task
 
 <p align="center">
-  <a href="#-about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-projeto">How to run the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#memo-licence">Licence</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-About">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-Layouts">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-Usage">Usage</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-Technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#memo-Licence">Licence</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
-### [#-about](#-about) About
+### About
 The task was to write a React app that connects to a websocket, retrieves data from there and aggregates it in order to show it in an orderly manner.
-### [#-layout](#-layout) Layouts
+### Layouts
 <br>
 <p align="center">
-    <h2>Ligth mode</h2>
-  <img alt="Login" src=".github/ligth.png" width="60%">
-  <h2>Dark mode</h2>
-  <img alt="LoginTwo" src=".github/dark.png" width="60%">
+    <h4>Ligth mode</h4>
+  <img alt="Login" src=".github/ligth.png" width="100%">
 </p> 
 <br>
+<br>
+<p  align="center">
+<h4>Dark mode</h4>
+  <img alt="LoginTwo" src=".github/dark.png" width="100%">
+</p>
+</br>
 
-### [#-projeto] How to run the project
+###  Usage
 1. Rename the .env.exemple to .env.local and replce your ip adress and the port
 2. Open a new bash shell
 3. ```npm install``` or ```yarn install```
 4. ```npm run dev``` or ```yarn dev```
 5. You can visit [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-### [#-technologies] Technologies
+### Technologies
 
 |    Lib       | Version  |
 | ------------ | -------- |
@@ -35,11 +39,12 @@ The task was to write a React app that connects to a websocket, retrieves data f
 | react        | 17.0.0   |
 | websocket    |    --    |
 
-### [#memo-licence] :bookmark: License
+###  :bookmark: License
 
 This project is [MIT](LICENSE) licensed.
 
-
+---
+Made with Love by Horacio Sapato
 
 
 
