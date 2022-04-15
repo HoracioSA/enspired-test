@@ -3,17 +3,17 @@
 
 <p align="center">
   <a href="#-About">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-Layouts">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-Layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-Usage">Usage</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-Technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#memo-Licence">Licence</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-Licence">Licence</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
 ## :memo: About
 
 The task was to write a React app that connects to a websocket, retrieves data from there and aggregates it in order to show it in an orderly manner.
 
-## :card_index: Layouts
+## :card_index: Layout
 
 <br>
 <p align="center">
@@ -28,7 +28,7 @@ The task was to write a React app that connects to a websocket, retrieves data f
 </p>
 </br>
 
-## 🧠 Use:
+## 🧠 Usage:
 
 1. Rename the .env.exemple to .env.local and replce your ip adress and the port
 2. Open a new bash shell
