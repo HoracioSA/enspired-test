@@ -1,5 +1,5 @@
 
-## Exchange data websocket task
+## Exchange data with websocket server
 
 <p align="center">
   <a href="#-About">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
